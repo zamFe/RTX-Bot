@@ -7,6 +7,12 @@ var htmlToJson = require("html-to-json");
 var fs = require('fs');
 const { type } = require('os');
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
+app.listen(port);
+
 var prefix = "!";
 
 var previousMessage;
