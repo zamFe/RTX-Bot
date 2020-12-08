@@ -9,11 +9,8 @@ const { type } = require('os');
 
 var prefix = "!";
 
-<<<<<<< HEAD
 var previousMessage;
 
-=======
->>>>>>> 92d6ffb1b328bb7164174e178880ce4bb7685d96
 //runs when bot goes online
 client.on('ready', () => {
     console.log('RTX Bot is online!');
@@ -49,20 +46,12 @@ client.on('message', async msg => {
             'available': ['div .product-list-item', function ($d) {
                 return $d.text();
             }],
-<<<<<<< HEAD
             'link': ['div .product-list-item', function ($a) {
-=======
-            'link' : ['a .image-container', function ($a) {
->>>>>>> 92d6ffb1b328bb7164174e178880ce4bb7685d96
                 return $a.attr('href');
             }]
         }, function (err, result) {
             //console.log(result);
-<<<<<<< HEAD
             fs.writeFile("test.txt", JSON.stringify(result), function (err) {
-=======
-            fs.writeFile("test.txt", JSON.stringify(result), function(err) {
->>>>>>> 92d6ffb1b328bb7164174e178880ce4bb7685d96
                 if (err) {
                     console.log(err);
                 }
@@ -71,7 +60,6 @@ client.on('message', async msg => {
             for (let i = 0; i < result.card.length; i++) {
                 cardStr += JSON.stringify(result.card[i]) + "\n";
                 cardStr += "status: ";
-<<<<<<< HEAD
                 if (result.available.length > i) {
                     if (JSON.stringify(result.available[i]).includes("Motta Varsel")) {
                         cardStr += "not available \n";
@@ -81,17 +69,6 @@ client.on('message', async msg => {
                         //cardStr += "buy here: " + result.link[i] + "\n";
                         cardStr += "\n";
                     } else if (JSON.stringify(result.available[i]).includes("stk. på lager")) {
-=======
-                if(result.available.length > i) {
-                    if(JSON.stringify(result.available[i]).includes("Motta Varsel")) {
-                        cardStr += "not available \n";
-                        cardStr += "\n";
-                    } else if(JSON.stringify(result.available[i]).includes("Ikke på lager")) {
-                        cardStr += "not in stock\n";
-                        //cardStr += "buy here: " + result.link[i] + "\n";
-                        cardStr += "\n";
-                    } else if(JSON.stringify(result.available[i]).includes("stk. på lager")) {
->>>>>>> 92d6ffb1b328bb7164174e178880ce4bb7685d96
                         cardStr += "in stock!\n";
                         //cardStr += "buy here: " + result.link[i] + "\n";
                         cardStr += "\n";
@@ -116,18 +93,13 @@ function checkForUpdate(result) {
         return true;
     }
     for (let i = 0; i < prevStatusList.length; i++) {
-<<<<<<< HEAD
         if (JSON.stringify(prevStatusList[i]) != JSON.stringify(result.available[i])) {
-=======
-        if(JSON.stringify(prevStatusList[i]) != JSON.stringify(result.available[i])) {
->>>>>>> 92d6ffb1b328bb7164174e178880ce4bb7685d96
             return true;
         }
     }
     return false;
 }
 
-<<<<<<< HEAD
 function addZero(i) {
     if (i < 10) {
       i = "0" + i;
@@ -204,52 +176,4 @@ setInterval(function () {
         client.channels.cache.get("785810248782708796").send(cardStr).then(msg => previousMessage = msg);
         prevStatusList = result.available;
     });
-=======
-setInterval(function() {
-    var komplett = htmlToJson.request('https://www.komplett.no/category/10412/datautstyr/pc-komponenter/skjermkort?nlevel=10000%C2%A728003%C2%A710412&cnet=Grafikkprosessor_A00247%20%20%C2%A7NVIDIA%20GeForce%20RTX%203080&cnet=Grafikkprosessor_A00247%20%20%C2%A7NVIDIA%20GeForce%20RTX%203090&cnet=Grafikkprosessor_A00247%20%20%C2%A7NVIDIA%20GeForce%20RTX%203070&stockStatus=InStock', {
-            'card': ['h2', function ($h) {
-                return $h.text();
-            }],
-            'available': ['div .product-list-item', function ($d) {
-                return $d.text();
-            }],
-            'link' : ['a .image-container', function ($a) {
-                return $a.attr('href');
-            }]
-        }, function (err, result) {
-            //console.log(result);
-            if(checkForUpdate(result) == false) {
-                return;
-            }
-            fs.writeFile("test.txt", JSON.stringify(result), function(err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            var cardStr = "\n *Currently listed cards:* \n\n";
-            for (let i = 0; i < result.card.length; i++) {
-                cardStr += JSON.stringify(result.card[i]) + "\n";
-                cardStr += "status: ";
-                if(result.available.length > i) {
-                    if(JSON.stringify(result.available[i]).includes("Motta Varsel")) {
-                        cardStr += "not available \n";
-                        cardStr += "\n";
-                    } else if(JSON.stringify(result.available[i]).includes("Ikke på lager")) {
-                        cardStr += "not in stock\n";
-                        //cardStr += "buy here: " + result.link[i] + "\n";
-                        cardStr += "\n";
-                    } else if(JSON.stringify(result.available[i]).includes("stk. på lager")) {
-                        cardStr += "in stock!\n";
-                        //cardStr += "buy here: " + result.link[i] + "\n";
-                        cardStr += "\n";
-                    }
-                } else {
-                    cardStr += "\n";
-                    cardStr += "\n";
-                }
-            }
-            client.channels.cache.get(config.ID).send(cardStr);
-            prevStatusList = result.available;
-        });
->>>>>>> 92d6ffb1b328bb7164174e178880ce4bb7685d96
 }, 1000); // 60 * 1000 milsec
